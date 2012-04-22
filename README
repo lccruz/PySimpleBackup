@@ -1,0 +1,19 @@
+PySimpleBackup:
+    Utilizado para efetuar backups com opção de envio para servidor externo e/ou deixar uma copia local, desenvolvido em Python.
+    
+    Possui duas partes, Server e Client.
+    Server:
+        Scripts de backup, envia um .tar.gz para servidor remoto e/ou salva em copia local.
+        Envia email se o tamanho da pasta (PATH_BACKUP) ultrapassar o valor informado na variavel ALERTA.
+        
+    Client:
+        Scripts para organizar em pastas os arquivos de backups, organiza em ANO_MES.
+        Envia email se o tamanho da pasta (PATH_BACKUP) ultrapassar o valor informado na variavel ALERTA.
+
+Credits
+    * Luciano Camargo Cruz <luciano@lccruz.net>
+    Copyright (c) 2012
+    GNU General Public License (GPL)
+
+Requirements:
+    Python == 2.7 or 2.6
