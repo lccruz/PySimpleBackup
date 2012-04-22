@@ -1,0 +1,73 @@
+PySimpleBackup:
+    Scripts de backup, envia um .tar.gz para servidor remoto e/ou salva em copia local.
+    Envia email se o tamanho da pasta (PATH_BACKUP) ultrapassar o valor informado na variavel ALERTA.
+    Copyright (c) 2012
+    GNU General Public License (GPL)
+
+Credits
+    * Luciano Camargo Cruz <luciano@lccruz.net>
+
+Requirements:
+    Python == 2.7 or 2.6
+
+Servidor remoto:
+    + criar um usuário:
+        adduser zope
+        
+    + criar diretório backups:
+        cd /home/zope
+        mkdir backups
+
+Servidor local:
+    + criar um usuário:
+        adduser zope
+        
+    + utilizar um par de chaves do SSH sem passphrase:
+        ssh-keygen -t rsa (rodar este comando com user zope e nao informar password, pressionar ENTER)
+        ssh-copy-id -i ~/.ssh/id_rsa.pub "zope@SERVIDOR.REMOTO -p 22"
+
+    + criar diretório backup:
+        cd /home/zope
+        mkdir backup
+    
+    + copiar os script python a pasta backup:
+        cp backup.py settings.py README /home/zope/backup
+        
+    + Configurar valores no arquivo settins.py
+        BACKUP_PATHS = "/home/zope/plone/zinstance/buildout.cfg\
+                        /home/zope/plone/zinstance/versions.cfg\
+                        /home/zope/plone/zinstance/var/filestorage/Data.fs\
+                        /home/zope/plone/zinstance/var/blobstorage"
+                    
+        #Pasta que sera movido o .tar
+        PATH_MV_BACKUP = 'backups'
+        
+        #Dados servidor remoto
+        SERVIDOR_REMOTO = 'HOST'
+        SERVIDOR_PATH = 'backups'
+        SERVIDOR_PORT = '22'
+        
+        #Setar como True para apagar o backupt local gerado no dia
+        EXCLUIR_BACKUP_LOCAL = False
+
+        #Setar como False para nao enviar arquivos para o servidor remoto
+        ENVIAR_SERVIDOR_REMOTO = True
+
+        #Configuracao para envio de email
+        EMAIL_FROM = "alerta@gmail.com"
+        EMAIL_TO = ["to@to.com.br", "to@to.net"]
+        EMAIL_USERNAME = 'alerta@gmail.com'
+        EMAIL_PASSWORD = 'XXX'
+        EMAIL_SMTP = 'smtp.gmail.com:587'
+
+        #Setar como False para nao enviar email
+        SEND_MAIL = True
+
+        #Envia um email alertando que o estado da pasta de backup esta critico
+        #Somente funciona se o ENVIAR_SERVIDOR_REMOTO = False
+        #Tamanho em bytes
+        ALERTA = 10000000000 #10GB
+
+    + adicionar regra no Crontab:
+        crontab -e (executar como user zope, todos os dias a 1 da manhã)
+        * 1 * * * python /home/zope/backups/backup.py

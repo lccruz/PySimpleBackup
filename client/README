@@ -1,0 +1,38 @@
+PySimpleBackup:
+    Scripts para organizar em pastas os arquivos de backups, organiza em ANO_MES.
+    Envia email se o tamanho da pasta (PATH_BACKUP) ultrapassar o valor informado na variavel ALERTA.
+    Copyright (c) 2012
+    GNU General Public License (GPL)
+
+Credits
+    * Luciano Camargo Cruz <luciano@lccruz.net>
+
+Requirements:
+    Python == 2.7 or 2.6
+
+Servidor local:
+    + criar diretório backup:
+        cd /home/zope
+        mkdir backup
+    
+    + copiar os script python a pasta backup:
+        cp backupClient.py settingsClient.py README /home/zope/backup
+        
+    + Configurar valores no arquivo settins.py
+        #Pasta dos backups
+        PATH_BACKUP = 'backups'
+
+        #Configuracao para envio de email
+        EMAIL_FROM = "alerta@gmail.com"
+        EMAIL_TO = ["to@to.com.br", "to@to.net"]
+        EMAIL_USERNAME = 'alerta@gmail.com'
+        EMAIL_PASSWORD = 'XXX'
+        EMAIL_SMTP = 'smtp.gmail.com:587'
+
+        #Envia um email alertando que o estado da pasta de backup esta critico
+        #Tamanho em bytes
+        ALERTA = 10000000000 #10GB
+
+    + adicionar regra no Crontab:
+        crontab -e (executar como user zope, todos os dias as 5 da manhã)
+        * 5 * * * python /home/zope/backups/backup.py
