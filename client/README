@@ -1,7 +1,7 @@
 PySimpleBackup:
     Scripts para organizar em pastas os arquivos de backups, organiza em ANO_MES.
     Envia email se o tamanho da pasta (PATH_BACKUP) ultrapassar o valor informado na variavel ALERTA.
-    Copyright (c) 2012
+    Copyright (c) 2013
     GNU General Public License (GPL)
 
 Credits
@@ -35,4 +35,4 @@ Servidor local:
 
     + adicionar regra no Crontab:
         crontab -e (executar como user zope, todos os dias as 5 da manhã)
-        * 5 * * * python /home/zope/backups/backup.py
+        00 05 * * * python /home/zope/backups/backup.py

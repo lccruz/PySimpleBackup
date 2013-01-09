@@ -1,7 +1,7 @@
 PySimpleBackup:
     Scripts de backup, envia um .tar.gz para servidor remoto e/ou salva em copia local.
     Envia email se o tamanho da pasta (PATH_BACKUP) ultrapassar o valor informado na variavel ALERTA.
-    Copyright (c) 2012
+    Copyright (c) 2013
     GNU General Public License (GPL)
 
 Credits
@@ -70,4 +70,4 @@ Servidor local:
 
     + adicionar regra no Crontab:
         crontab -e (executar como user zope, todos os dias a 1 da manhã)
-        * 1 * * * python /home/zope/backups/backup.py
+        00 01 * * * python /home/zope/backups/backup.py
